@@ -6,6 +6,11 @@
 
 namespace explosion{
 
+// YRANGE compensates the difference in the range from x to y
+// since the screen has different height and width constants
+const double XRANGE{screen::SCREEN_WIDTH/2};
+const double YRANGE{screen::SCREEN_WIDTH/2 + screen::SCREEN_HEIGHT/2};
+
 screen app::m_screen = screen();
 
 void app::run(){
@@ -34,8 +39,8 @@ void app::run(){
         for(int i = 0; i < appSwarm.NPARTICLES; i++){
             particle currentParticle = pParticles[i];
 
-            int x = (currentParticle.m_x + 1) * (m_screen.SCREEN_WIDTH/2);
-            int y = (currentParticle.m_y + 1) * (m_screen.SCREEN_HEIGHT/2);
+            int x = (currentParticle.m_x + 1) * (XRANGE);
+            int y = (currentParticle.m_y * YRANGE);
 
             m_screen.setPixel(x, y, red, green, blue);
         }
