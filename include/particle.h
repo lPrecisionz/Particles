@@ -11,6 +11,7 @@ struct particle{
 public:
     particle();
     void update(int interval);
+    void init();
 };
 
 } //namespace explosion

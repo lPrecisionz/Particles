@@ -8,7 +8,7 @@ namespace explosion{
 
 class swarm{
 public:
-    const int NPARTICLES{2000};
+    const int NPARTICLES{5000};
     int m_lastTime{0};
 
 private:

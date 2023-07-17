@@ -28,10 +28,8 @@ void app::run(){
         int elapsed = SDL_GetTicks();
 
         appSwarm.update(elapsed);
-        m_screen.clear();
-
         //unsigned: safety to avoid > 255
-        unsigned char red = (1 + sin(elapsed * 0.001)) * 128;
+        unsigned char red= (1 + sin(elapsed * 0.001)) * 128;
         unsigned char green = (1 + sin(elapsed * 0.002)) * 128;
         unsigned char blue = (1 + sin(elapsed * 0.003)) * 128;
 
@@ -39,11 +37,12 @@ void app::run(){
             particle currentParticle = pParticles[i];
 
             int x = (currentParticle.m_x + 1) * (XRANGE);
-            int y = (currentParticle.m_y * XRANGE + YRANGE);
+            int y = (currentParticle.m_y * XRANGE + YRANGE); //compensating disproportion
 
             m_screen.setPixel(x, y, red, green, blue);
         }
 
+        m_screen.boxBlur();
         m_screen.update();
 
         if(!m_screen.processEvents(event)){
