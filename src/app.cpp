@@ -23,6 +23,8 @@ void app::run(){
     while(!quit){
         const particle * const pParticles = appSwarm.getParticles();
 
+        appSwarm.update();
+        m_screen.clear();
         int elapsed = SDL_GetTicks();
         //unsigned: safety to avoid > 255
         unsigned char red = (1 + sin(elapsed * 0.001)) * 128;
@@ -39,6 +41,7 @@ void app::run(){
         }
 
         m_screen.update();
+
         if(!m_screen.processEvents(event)){
             quit = true;
         }

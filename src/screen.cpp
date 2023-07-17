@@ -61,6 +61,10 @@ void screen::update(){
     SDL_RenderPresent(m_renderer);
 }
 
+void screen::clear(){
+    SDL_memset(m_buffer, 0, SCREEN_WIDTH * SCREEN_HEIGHT * sizeof(Uint32));
+}
+
 void screen::setPixel(int x, int y, Uint8 red, Uint8 green, Uint8 blue){
     bool outOfRange = x < 0 || x >= screen::SCREEN_WIDTH
         || y < 0 || y >= screen::SCREEN_HEIGHT;
