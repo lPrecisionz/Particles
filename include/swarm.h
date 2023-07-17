@@ -9,6 +9,7 @@ namespace explosion{
 class swarm{
 public:
     const int NPARTICLES{2000};
+    int m_lastTime{0};
 
 private:
     particle* m_particles;
@@ -16,7 +17,7 @@ private:
 public:
     swarm();
     ~swarm();
-    void update();
+    void update(int elapsed);
     particle* const getParticles() {return m_particles; };
 };
 

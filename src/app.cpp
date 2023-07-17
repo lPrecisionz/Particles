@@ -6,10 +6,8 @@
 
 namespace explosion{
 
-// YRANGE compensates the difference in the range from x to y
-// since the screen has different height and width constants
-const double XRANGE{screen::SCREEN_WIDTH/2};
-const double YRANGE{screen::SCREEN_WIDTH/2 + screen::SCREEN_HEIGHT/2};
+const int XRANGE{screen::SCREEN_WIDTH/2};
+const int YRANGE{screen::SCREEN_HEIGHT/2};
 
 screen app::m_screen = screen();
 
@@ -27,10 +25,11 @@ void app::run(){
 
     while(!quit){
         const particle * const pParticles = appSwarm.getParticles();
-
-        appSwarm.update();
-        m_screen.clear();
         int elapsed = SDL_GetTicks();
+
+        appSwarm.update(elapsed);
+        m_screen.clear();
+
         //unsigned: safety to avoid > 255
         unsigned char red = (1 + sin(elapsed * 0.001)) * 128;
         unsigned char green = (1 + sin(elapsed * 0.002)) * 128;
@@ -40,7 +39,7 @@ void app::run(){
             particle currentParticle = pParticles[i];
 
             int x = (currentParticle.m_x + 1) * (XRANGE);
-            int y = (currentParticle.m_y * YRANGE);
+            int y = (currentParticle.m_y * XRANGE + YRANGE);
 
             m_screen.setPixel(x, y, red, green, blue);
         }
