@@ -2,7 +2,7 @@
 #include <SDL.h>
 #pragma once
 
-namespace Particle{
+namespace explosion{
 
 class screen{
 public:
@@ -18,8 +18,10 @@ private:
 public:
     screen();
     bool init();
-    bool processEvents();
+    bool processEvents(SDL_Event &event);
+    void setPixel(int x, int y, Uint8 red, Uint8 green, Uint8 blue);
+    void update();
     void close();
 };
 
-} // namespace Particle
+} // namespace explosion

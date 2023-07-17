@@ -3,14 +3,14 @@
 
 #pragma once
 
-namespace Particle{
+namespace explosion{
 
 class app{
 public:
     static screen m_screen;
 
 public:
-    static void run();
+    static void run(); //game loop
 };
 
-} //namespace Particle
+} //namespace explosion

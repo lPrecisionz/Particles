@@ -1,6 +1,6 @@
 #include "../include/screen.h"
 
-namespace Particle{
+namespace explosion{
 
 screen::screen(): m_window(NULL),
 m_renderer(NULL),
@@ -51,15 +51,38 @@ bool screen::init(){
 
     m_buffer = new Uint32[SCREEN_WIDTH * SCREEN_HEIGHT];
     SDL_memset(m_buffer, 0, SCREEN_WIDTH * SCREEN_HEIGHT * sizeof(Uint32));
+    return true;
+}
 
+void screen::update(){
     SDL_UpdateTexture(m_texture, NULL, m_buffer, SCREEN_WIDTH * sizeof(Uint32));
     SDL_RenderClear(m_renderer);
     SDL_RenderCopy(m_renderer, m_texture, NULL, NULL);
     SDL_RenderPresent(m_renderer);
-
-    return true;
 }
-    
+
+void screen::setPixel(int x, int y, Uint8 red, Uint8 green, Uint8 blue){
+    Uint32 color{0};
+
+    color += red;
+    color <<= 8;
+    color += green;
+    color <<= 8;
+    color += blue;
+    color <<= 8;
+    color += 0xFF; //alpha (opaque)
+
+    m_buffer[SCREEN_WIDTH * y + x] = color;
+}
+
+bool screen::processEvents(SDL_Event &event){
+    while(SDL_PollEvent(&event)){
+        if (event.type == SDL_QUIT){
+            return false;
+        }
+    }
+    return true;
+}   
 
 void screen::close(){
     delete [] m_buffer;
@@ -70,4 +93,4 @@ void screen::close(){
 }
 
 
-} // namespace Particle
+} // namespace explosion
